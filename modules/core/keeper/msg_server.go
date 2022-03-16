@@ -377,6 +377,8 @@ func (k Keeper) RecvPacket(goCtx context.Context, msg *channeltypes.MsgRecvPacke
 		return nil, sdkerrors.Wrap(err, "could not retrieve module from port-id")
 	}
 
+	k.ChannelKeeper.Logger(ctx).Info("HAHA HAHA HAHA! module: %s", module)
+
 	// Retrieve callbacks from router
 	cbs, ok := k.Router.GetRoute(module)
 	if !ok {
