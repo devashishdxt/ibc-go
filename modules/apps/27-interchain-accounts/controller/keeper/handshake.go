@@ -108,6 +108,8 @@ func (k Keeper) OnChanOpenAck(
 	}
 
 	k.SetActiveChannelID(ctx, metadata.ControllerConnectionId, portID, channelID)
+
+	k.Logger(ctx).Info(fmt.Sprintf("set interchain account address for connectionID %s for portID %s: %s", metadata.ControllerConnectionId, portID, metadata.Address))
 	k.SetInterchainAccountAddress(ctx, metadata.ControllerConnectionId, portID, metadata.Address)
 
 	return nil
