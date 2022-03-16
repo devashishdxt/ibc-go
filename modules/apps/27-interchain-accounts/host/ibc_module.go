@@ -105,6 +105,8 @@ func (im IBCModule) OnRecvPacket(
 	packet channeltypes.Packet,
 	_ sdk.AccAddress,
 ) ibcexported.Acknowledgement {
+	im.keeper.Logger(ctx).Debug("HAHA! Received interchain account packet")
+
 	if !im.keeper.IsHostEnabled(ctx) {
 		return types.NewErrorAcknowledgement(types.ErrHostSubModuleDisabled)
 	}

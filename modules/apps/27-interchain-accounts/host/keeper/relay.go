@@ -13,14 +13,14 @@ import (
 // OnRecvPacket handles a given interchain accounts packet on a destination host chain.
 // If the transaction is successfully executed, the transaction response bytes will be returned.
 func (k Keeper) OnRecvPacket(ctx sdk.Context, packet channeltypes.Packet) ([]byte, error) {
+	k.Logger(ctx).Debug("HAHA! HAHA! Received interchain account packet")
+
 	var data icatypes.InterchainAccountPacketData
 
 	if err := icatypes.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
 		// UnmarshalJSON errors are indeterminate and therefore are not wrapped and included in failed acks
 		return nil, sdkerrors.Wrapf(icatypes.ErrUnknownDataType, "cannot unmarshal ICS-27 interchain account packet data")
 	}
-
-	k.Logger(ctx).Debug("HAHA! Received interchain account packet")
 
 	switch data.Type {
 	case icatypes.EXECUTE_TX:
